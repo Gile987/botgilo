@@ -23,7 +23,7 @@ function dispatchCommand(bot, msg) {
       handler(bot, chatId, args.join(' '));
     } else {
       // If command doesn't exist, display unknown command error
-      bot.sendMessage(chatId, 'Nepoznata komanda :(');
+      bot.sendMessage(chatId, 'Unknown command 😞');
     }
   } else {
     // Check if the message has a handler
