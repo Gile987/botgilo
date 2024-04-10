@@ -5,6 +5,7 @@ const helpHandler = require('./commands/help');
 const weatherHandler = require('./commands/weather');
 const helloHandler = require('./messages/hello');
 const pokemonHandler = require('./commands/pokemon');
+const stockHandler = require('./commands/stocks');
 
 
 const bot = new TelegramBot(token, {polling: true});
@@ -13,6 +14,7 @@ const bot = new TelegramBot(token, {polling: true});
 registerCommand('help', helpHandler);
 registerCommand('weather', weatherHandler);
 registerCommand('pokemon', pokemonHandler);
+registerCommand('stocks', stockHandler);
 
 // register message handlers
 registerMessageHandler(helloHandler);
