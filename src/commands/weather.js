@@ -24,6 +24,7 @@ async function weatherHandler(bot, chatId, city) {
       "🌈",
       "💖",
       "✨",
+      "🐞",
     ];
     const randomEmoji =
       cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
