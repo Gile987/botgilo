@@ -1,6 +1,21 @@
 const axios = require("axios");
 const { weatherApiKey } = require("../../config");
 
+const KELVIN_TO_CELSIUS = 273.15;
+const CUTE_EMOJIS = [
+  "🐻",
+  "🐱",
+  "🐶",
+  "🐼",
+  "🐰",
+  "🦄",
+  "🌸",
+  "🌈",
+  "💖",
+  "✨",
+  "🐞",
+];
+
 async function weatherHandler(bot, chatId, city) {
   try {
     const response = await axios.get(
@@ -9,25 +24,15 @@ async function weatherHandler(bot, chatId, city) {
 
     const { main, weather } = response.data;
 
+    if (!weather || weather.length === 0) {
+      throw new Error("Weather data is not available");
+    }
+
     const weatherDescription = weather[0].description;
     const temperature = main.temp;
-    const formattedTemperature = Math.round(temperature - 273.15);
+    const formattedTemperature = Math.round(temperature - KELVIN_TO_CELSIUS);
     const capitalizedCity = city.charAt(0).toUpperCase() + city.slice(1);
-    const cuteEmojis = [
-      "🐻",
-      "🐱",
-      "🐶",
-      "🐼",
-      "🐰",
-      "🦄",
-      "🌸",
-      "🌈",
-      "💖",
-      "✨",
-      "🐞",
-    ];
-    const randomEmoji =
-      cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
+    const randomEmoji = CUTE_EMOJIS[Math.floor(Math.random() * CUTE_EMOJIS.length)];
     const message = `${randomEmoji} Weather in ${capitalizedCity}: ${weatherDescription}. Temperature: ${formattedTemperature}°C. ${randomEmoji}`;
 
     bot.sendMessage(chatId, message);
