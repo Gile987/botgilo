@@ -16,8 +16,9 @@ const CUTE_EMOJIS = [
   "🐞",
 ];
 
-async function weatherHandler(bot, chatId, city) {
+async function weatherHandler(bot, chatId, args) {
   try {
+    const city = args.join(' ');
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}`
     );

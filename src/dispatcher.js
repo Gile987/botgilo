@@ -20,10 +20,12 @@ function dispatchCommand(bot, msg) {
 
     // If command exists, handle it
     if (handler) {
-      handler(bot, chatId, args.join(' '));
+      handler(bot, chatId, args);
+      return true;
     } else {
       // If command doesn't exist, display unknown command error
       bot.sendMessage(chatId, 'Unknown command 😞');
+      return false;
     }
   } else {
     // Check if the message has a handler
@@ -33,6 +35,8 @@ function dispatchCommand(bot, msg) {
     if (!hasMessageHandler) {
       return false;
     }
+
+    return true;
   }
 }
 
