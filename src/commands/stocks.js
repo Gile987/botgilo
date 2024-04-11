@@ -1,15 +1,17 @@
 const axios = require("axios");
 const { alphaVantageApiKey } = require("../../config");
 
+const API_URL_BASE = "https://www.alphavantage.co/query";
+
 async function stockHandler(bot, chatId, symbol) {
   try {
     const response = await axios.get(
-      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${alphaVantageApiKey}`
+      `${API_URL_BASE}?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${alphaVantageApiKey}`
     );
 
     const data = response.data["Global Quote"];
-    if (!data) {
-      throw new Error("Stock data not found");
+    if (!data || !data["01. symbol"] || !data["05. price"] || !data["09. change"] || !data["06. volume"] || !data["07. latest trading day"]) {
+      throw new Error("Stock data not found or incomplete");
     }
 
     const name = data["01. symbol"];
